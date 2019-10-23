@@ -35,7 +35,7 @@ open class SwiftyCamViewController: UIViewController {
 		/// Camera on the front of the device
 		case front = "front"
 	}
-    
+
     public enum FlashMode{
         //Return the equivalent AVCaptureDevice.FlashMode
         var AVFlashMode: AVCaptureDevice.FlashMode {
@@ -50,10 +50,10 @@ open class SwiftyCamViewController: UIViewController {
         }
         //Flash mode is set to auto
         case auto
-        
+
         //Flash mode is set to on
         case on
-        
+
         //Flash mode is set to off
         case off
     }
@@ -130,7 +130,7 @@ open class SwiftyCamViewController: UIViewController {
             self.flashMode = self.flashEnabled ? .on : .off
         }
     }
-    
+
     // Flash Mode
     public var flashMode:FlashMode               = .off
 
@@ -197,7 +197,7 @@ open class SwiftyCamViewController: UIViewController {
 
     /// Video will be recorded to this folder
     public var outputFolder: String           = NSTemporaryDirectory()
-    
+
     /// Public access to Pinch Gesture
     fileprivate(set) public var pinchGesture  : UIPinchGestureRecognizer!
 
@@ -294,7 +294,7 @@ open class SwiftyCamViewController: UIViewController {
 	}
 
 	/// Sets output video codec
-    
+
     public var videoCodecType: AVVideoCodecType? = nil
 
 	// MARK: ViewDidLoad
@@ -351,7 +351,7 @@ open class SwiftyCamViewController: UIViewController {
         } else {
             layer.videoOrientation = .portrait
         }
-        
+
         previewLayer.frame = self.view.bounds
 
     }
@@ -746,7 +746,7 @@ open class SwiftyCamViewController: UIViewController {
                     return
                 }
             }
-			
+
 		} catch {
 			print("[SwiftyCam]: Could not create video device input: \(error)")
 			setupResult = .configurationFailed
@@ -768,11 +768,11 @@ open class SwiftyCamViewController: UIViewController {
                 } else {
                     print("[SwiftyCam]: Could not add audio device input to the session")
                 }
-                
+
             } else {
                 print("[SwiftyCam]: Could not find an audio device")
             }
-            
+
 		} catch {
 			print("[SwiftyCam]: Could not create audio device input: \(error)")
 		}
@@ -843,7 +843,7 @@ open class SwiftyCamViewController: UIViewController {
             return
         }
 
-		if let videoConnection = photoFileOutput?.connection(with: AVMediaType.video) {
+		if let videoConnection = photoFileOutput?.connection(with: AVMediaType.video), videoConnection.isEnabled, videoConnection.isActive {
 
 			photoFileOutput?.captureStillImageAsynchronously(from: videoConnection, completionHandler: {(sampleBuffer, error) in
 				if (sampleBuffer != nil) {
